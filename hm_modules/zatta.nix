@@ -12,6 +12,7 @@
     
     htop
     rsync
+    openssh
     
     curl
   ];
