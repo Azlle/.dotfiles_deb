@@ -9,6 +9,7 @@
       extractor = {
         base-directory = "~/gallery-dl/";
         pixiv = {
+          refresh-token = "GET_YOUR_OWN_TOKEN";
           directory = [
             "{category}"
             "{user[id]}_{user[account]}"
