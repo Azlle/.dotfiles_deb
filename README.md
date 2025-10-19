@@ -3,31 +3,23 @@ WSL2 Debianで使用しているNixのごった煮。
 
 ## セットアップ
 
-### 1. curlのインストール
+### 1. curlがインストールされていることを確認
 Debianにはデフォルトでcurlが入っていない ***wow***
 ```bash
 sudo apt update && sudo apt install -y curl
 ```
 
-### 2. bootstrapスクリプトの実行
+### 2. bootstrap.shの実行
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/Azlle/.dotfiles_deb/main/scripts/bootstrap.sh)"
 ```
+実行後、`wsl.exe --shutdown`で再起動する。
 
-### 3. WSL再起動
-```
-wsl.exe --shutdown
-```
-
-### 4. installスクリプトの実行
+### 3. install.shの実行
 ```bash
 ~/.dotfiles_deb/scripts/install.sh
 ```
-
-### 5. WSL再起動（再び）
-```
-wsl.exe --shutdown
-```
+実行後、`wsl.exe --shutdown`で再起動する。
 
 以上で完了し、fish環境で起動する。
 
