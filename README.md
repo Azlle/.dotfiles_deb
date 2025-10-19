@@ -28,4 +28,4 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/Azlle/.dotfiles_deb/main/s
 | abbr | 展開後 |
 |------|--------|
 | `hmsf` | `home-manager switch --flake ~/.dotfiles_deb/` |
-| `nsgc` | `nix store gc` |
+| `nist` | `nix store gc && nix store optimise` |

@@ -26,7 +26,7 @@
 
       # nix
       hmsf = "home-manager switch --flake ~/.dotfiles_deb/";
-      nsgc = "nix store gc";
+      nist = "nix store gc && nix store optimise";
 
       # git
       gst = "git status";
