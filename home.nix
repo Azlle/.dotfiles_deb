@@ -17,4 +17,10 @@
   xdg.configFile."nix/nix.conf".text = ''
     experimental-features = nix-command flakes
   '';
+
+  # fish.enable = trueにしてもPATHを通すのに失敗しているので手動で
+  home.sessionPath = [
+    "$HOME/.nix-profile/bin"
+    "/nix/var/nix/profiles/default/bin"
+  ];
 }

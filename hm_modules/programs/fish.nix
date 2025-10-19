@@ -10,10 +10,6 @@
    
   programs.fish = {
     enable = true;
-    
-    loginShellInit = ''
-      fish_add_path --prepend ~/.nix-profile/bin /nix/var/nix/profiles/default/bin
-    '';
 
     shellInit = ''
       set fish_greeting
