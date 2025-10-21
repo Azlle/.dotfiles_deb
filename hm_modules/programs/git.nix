@@ -4,14 +4,17 @@
 {
   programs.git = {
     enable = true;
-    userName = "Azlle";
-    userEmail = "moxmo2@pm.me";
-    
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Azlle";
+        email = "moxmo2@pm.me";
+      };
+
       core = {
         editor = "nvim";
         autocrlf = "input";
       };
+
       merge.ff = false;
       pull.ff = "only";
     };

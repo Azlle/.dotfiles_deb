@@ -22,7 +22,6 @@
     };
   };
 
-  catppuccin.delta.enable = false;
   catppuccin.yazi = {
     enable = true;
     flavor = "mocha";
