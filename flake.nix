@@ -10,6 +10,11 @@
     };
 
     catppuccin.url = "github:catppuccin/nix";
+
+    bunny-yazi = {
+      url = "github:stelcodes/bunny.yazi";
+      flake = false;
+    };
   };
 
   outputs =
@@ -18,6 +23,7 @@
       nixpkgs,
       home-manager,
       catppuccin,
+      bunny-yazi,
       ...
     }@inputs:
 
@@ -36,6 +42,7 @@
             ./home.nix
             catppuccin.homeModules.catppuccin
           ];
+          extraSpecialArgs = { inherit inputs; };
         };
       };
     };

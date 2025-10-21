@@ -1,5 +1,5 @@
 # yazi.nix
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   programs.yazi = {
@@ -9,17 +9,39 @@
         show_hidden = true;
         mouse_events = [];
       };
+
       opener = {
         nvim = [{ run = "nvim \"$@\""; block = true; }];
         mpv = [{ run = "mpv \"$@\""; block = true; }];
         imv = [{ run = "imv \"$@\""; block = true; }];
       };
+
       open.rules = [
         { mime = "text/*"; use = "nvim"; }
         { mime = "video/*"; use = "mpv"; }
         { mime = "image/*"; use = "imv"; }
       ];
     };
+    
+    plugins.bunny = "${inputs.bunny-yazi}";
+    initLua = ''
+      require("bunny"):setup({
+        hops = {
+          { key = "n", path = "/nix/store", desc = "Nix store" },
+          { key = ".", path = "~/.dotfiles_deb", desc = "dotfiles" },
+          { key = "u", path = "/mnt/f/Users/Eeshta", desc = "%USERDATA%" },
+          -- key and path attributes are required, desc is optional
+        },
+        desc_strategy = "path", -- If desc isn't present, use "path" or "filename", default is "path"
+        ephemeral = true, -- Enable ephemeral hops, default is true
+        tabs = true, -- Enable tab hops, default is true
+        notify = false, -- Notify after hopping, default is false
+        fuzzy_cmd = "fzf", -- Fuzzy searching command, default is "fzf"
+      })
+    '';
+    keymap.mgr.prepend_keymap = [
+      { on = "b"; run = "plugin bunny"; desc = "Start bunny.yazi"; }
+    ];
   };
 
   catppuccin.yazi = {
