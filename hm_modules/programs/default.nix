@@ -8,6 +8,7 @@
     ./git.nix
     ./helix.nix
     ./nvim.nix
+    ./yazi.nix
     ./yt-dlp.nix
   ];
 }
