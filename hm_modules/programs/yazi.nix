@@ -11,13 +11,13 @@
       };
 
       opener = {
-        nvim = [{ run = "nvim \"$@\""; block = true; }];
+        helix = [{ run = "hx \"$@\""; block = true; }];
         mpv = [{ run = "mpv \"$@\""; block = true; }];
         imv = [{ run = "imv \"$@\""; block = true; }];
       };
 
       open.rules = [
-        { mime = "text/*"; use = "nvim"; }
+        { mime = "text/*"; use = "helix"; }
         { mime = "video/*"; use = "mpv"; }
         { mime = "image/*"; use = "imv"; }
       ];
