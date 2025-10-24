@@ -4,25 +4,52 @@
 {
   programs.yazi = {
     enable = true;
+    enableZshIntegration = true;
+    shellWrapperName = "y";
+
     settings = {
       mgr = {
         show_hidden = true;
-        mouse_events = [];
+        mouse_events = [ ];
       };
 
       opener = {
-        helix = [{ run = "hx \"$@\""; block = true; }];
-        mpv = [{ run = "mpv \"$@\""; block = true; }];
-        imv = [{ run = "imv \"$@\""; block = true; }];
+        helix = [
+          {
+            run = "hx \"$@\"";
+            block = true;
+          }
+        ];
+        mpv = [
+          {
+            run = "mpv \"$@\"";
+            block = true;
+          }
+        ];
+        imv = [
+          {
+            run = "imv \"$@\"";
+            block = true;
+          }
+        ];
       };
 
       open.rules = [
-        { mime = "text/*"; use = "helix"; }
-        { mime = "video/*"; use = "mpv"; }
-        { mime = "image/*"; use = "imv"; }
+        {
+          mime = "text/*";
+          use = "helix";
+        }
+        {
+          mime = "video/*";
+          use = "mpv";
+        }
+        {
+          mime = "image/*";
+          use = "imv";
+        }
       ];
     };
-    
+
     plugins.bunny = "${inputs.bunny-yazi}";
     initLua = ''
       require("bunny"):setup({
@@ -30,6 +57,7 @@
           { key = "n", path = "/nix/store", desc = "Nix store" },
           { key = ".", path = "~/.dotfiles_deb", desc = "dotfiles" },
           { key = "u", path = "/mnt/f/Users/Eeshta", desc = "%USERDATA%" },
+          { key = "a", path = "/mnt/c/Users/Eeshta/AppData", desc = "%APPDATA%" },
           -- key and path attributes are required, desc is optional
         },
         desc_strategy = "path", -- If desc isn't present, use "path" or "filename", default is "path"
@@ -40,7 +68,11 @@
       })
     '';
     keymap.mgr.prepend_keymap = [
-      { on = "b"; run = "plugin bunny"; desc = "Start bunny.yazi"; }
+      {
+        on = "b";
+        run = "plugin bunny";
+        desc = "Start bunny.yazi";
+      }
     ];
   };
 
@@ -77,9 +109,9 @@
         save-position-on-quit = true;
       };
     };
-    
+
     zathura.enable = true;
-    
+
     fd.enable = true;
 
     fzf = {

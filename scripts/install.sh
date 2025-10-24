@@ -12,9 +12,9 @@ nix run home-manager/master -- switch --flake .#miyu
 echo "Cleaning up apt packages..."
 sudo apt purge -y curl xz-utils git && sudo apt autoremove -y
 
-echo "Setting fish as default shell..."
-echo $(which fish) | sudo tee -a /etc/shells
-chsh -s $(which fish)
+echo "Setting Zsh as default shell..."
+echo $(which zsh) | sudo tee -a /etc/shells
+chsh -s $(which zsh)
 
 echo ""
 echo "=== Setup Complete! ==="
