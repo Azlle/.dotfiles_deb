@@ -21,6 +21,7 @@
         # ./eza.nixのextraOptionsで省略している
         ls = "eza -Bl";
         la = "eza -aaghl";
+        cat = "bat";
         rmtrash = "rm -rf ~/.local/share/Trash/files/*";
         nano = "hx";
 
@@ -81,7 +82,9 @@
       '')
 
       (mkOrder 1500 ''
-         ZSH_AUTOSUGGEST_STRATEGY=( abbreviations history completion )
+        ZSH_AUTOSUGGEST_STRATEGY=( abbreviations history completion )
+        bindkey '^[[A' history-substring-search-up
+        bindkey '^[[B' history-substring-search-down
       '')
     ];
   };
