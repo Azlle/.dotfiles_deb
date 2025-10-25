@@ -3,6 +3,7 @@
 
 {
   imports = [
+    ./eza.nix
     ./fish.nix
     ./gl-dl.nix
     ./git.nix

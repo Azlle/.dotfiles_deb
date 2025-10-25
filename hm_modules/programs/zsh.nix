@@ -1,5 +1,5 @@
 # zsh.nix
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }: with lib;
 
 {
   programs.keychain = {
@@ -17,7 +17,8 @@
     zsh-abbr = {
       enable = true;
       abbreviations = {
-        la = "ls -ahl --group-directories-first";
+        ls = "eza -Bl";
+        la = "eza -aaghl";
         rmtrash = "rm -rf ~/.local/share/Trash/files/*";
         nano = "hx";
 
@@ -43,6 +44,29 @@
       ignoreSpace = true;
       share = true;
     };
+
+    antidote = {
+      enable = false;
+      plugins = [
+      ];
+    };
+
+    plugins = [
+      {
+        name = "powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+      {
+        name = "powerlevel10k-config";
+        src = ../.config/p10k-config;
+        file = ".p10k.zsh";
+      }
+    ];
+
+    initContent = mkOrder 1500 ''
+      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+    '';
 
     setOptions = [ "NO_BEEP" ];
   };

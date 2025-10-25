@@ -1,10 +1,5 @@
 # helix.nix
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, config, lib, ... }:
 
 {
   programs.helix = {
@@ -101,7 +96,7 @@
     languages.language = [
       {
         name = "nix";
-        auto-format = true;
+        auto-format = false;
         formatter.command = lib.getExe pkgs.nixfmt-rfc-style;
       }
     ];
