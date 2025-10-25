@@ -10,13 +10,15 @@
 
   programs.zsh = {
     enable = true;
-    enableCompletion = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
+    setOptions = [
+      "AUTO_CD" "NO_BEEP" "LIST_PACKED"
+      "EXTENDED_GLOB" "GLOB_DOTS" "NUMERIC_GLOB_SORT" "NULL_GLOB" 
+    ];
 
     zsh-abbr = {
       enable = true;
       abbreviations = {
+        # ./eza.nixのextraOptionsで省略している
         ls = "eza -Bl";
         la = "eza -aaghl";
         rmtrash = "rm -rf ~/.local/share/Trash/files/*";
@@ -46,8 +48,14 @@
     };
 
     antidote = {
-      enable = false;
+      enable = true;
       plugins = [
+        "chisui/zsh-nix-shell"
+        "zsh-users/zsh-completions"
+        "zsh-users/zsh-autosuggestions"
+        "zsh-users/zsh-history-substring-search"
+        "zdharma-continuum/fast-syntax-highlighting"
+        "olets/zsh-autosuggestions-abbreviations-strategy"
       ];
     };
 
@@ -64,10 +72,17 @@
       }
     ];
 
-    initContent = mkOrder 1500 ''
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-    '';
+    initContent = mkMerge [
+      (mkOrder 500 ''
+        zstyle ':completion:*' menu select
+        zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
+        zstyle ':completion:*' matcher-list "" 'm:{a-zA-Z}={A-Za-z}' 'r:|?=** r:|=*'
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+      '')
 
-    setOptions = [ "NO_BEEP" ];
+      (mkOrder 1500 ''
+         ZSH_AUTOSUGGEST_STRATEGY=( abbreviations history completion )
+      '')
+    ];
   };
 }
