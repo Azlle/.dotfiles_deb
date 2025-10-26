@@ -27,7 +27,7 @@
         la = "eza -aaghl";
         cat = "bat";
         rmtrash = "rm -rf ~/.local/share/Trash/files/*";
-        nano = "hx";
+        vi = "hx";
 
         # nix
         hmsf = "home-manager switch --flake ~/.dotfiles_deb/";

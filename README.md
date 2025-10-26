@@ -21,7 +21,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/Azlle/.dotfiles_deb/main/s
 ```
 実行後、`wsl.exe --shutdown`で再起動する。
 
-以上で完了し、fish環境で起動する。
+以上で完了し、Zsh環境で起動する。
 
 以下のようなAbbreviationsが登録されている:
 

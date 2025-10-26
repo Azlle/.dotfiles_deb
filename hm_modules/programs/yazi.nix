@@ -92,13 +92,13 @@
 
     fzf = {
       enable = true;
-      enableFishIntegration = true;
+      enableZshIntegration = true;
       defaultCommand = "plocate ''";
     };
 
     zoxide = {
       enable = true;
-      enableFishIntegration = true;
+      enableZshIntegration = true;
     };
   };
 }
