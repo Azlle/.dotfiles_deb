@@ -69,10 +69,17 @@
         source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       '')
 
+      (mkOrder 1000 ''
+        local noglob_cmds=(
+          nix git curl wget rsync
+        )
+        for cmd in $noglob_cmds; do
+          alias $cmd="noglob $cmd"
+        done
+      '')
+
       (mkOrder 1500 ''
         ZSH_AUTOSUGGEST_STRATEGY=( abbreviations history completion )
-        # bindkey '^[[A' history-substring-search-up
-        # bindkey '^[[B' history-substring-search-down
       '')
     ];
   };
