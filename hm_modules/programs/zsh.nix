@@ -10,6 +10,10 @@
 
   programs.zsh = {
     enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    historySubstringSearch.enable = true;
+    
     setOptions = [
       "AUTO_CD" "NO_BEEP" "LIST_PACKED"
       "EXTENDED_GLOB" "GLOB_DOTS" "NUMERIC_GLOB_SORT" "NULL_GLOB" 
@@ -48,29 +52,13 @@
       share = true;
     };
 
-    antidote = {
-      enable = true;
-      plugins = [
-        "chisui/zsh-nix-shell"
-        "zsh-users/zsh-completions"
-        "zsh-users/zsh-autosuggestions"
-        "zsh-users/zsh-history-substring-search"
-        "zdharma-continuum/fast-syntax-highlighting"
-        "olets/zsh-autosuggestions-abbreviations-strategy"
-      ];
-    };
-
+    # ls -la $(nix-build '<nixpkgs>' -A <パッケージ名> --no-out-link)/share/ で.zshを探す
     plugins = [
-      {
-        name = "powerlevel10k";
-        src = pkgs.zsh-powerlevel10k;
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      }
-      {
-        name = "powerlevel10k-config";
-        src = ../.config/p10k-config;
-        file = ".p10k.zsh";
-      }
+      { name = "powerlevel10k"; src = pkgs.zsh-powerlevel10k; file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme"; }
+      { name = "powerlevel10k-config"; src = ../.config/p10k-config; file = ".p10k.zsh"; }
+      { name = "zsh-nix-shell"; src = pkgs.zsh-nix-shell; file = "share/zsh-nix-shell/nix-shell.plugin.zsh"; }
+      { name = "fast-syntax-highlighting"; src = pkgs.zsh-fast-syntax-highlighting; file = "share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh"; }
+      { name = "zsh-autosuggestions-abbreviations-strategy"; src = pkgs.zsh-autosuggestions-abbreviations-strategy; file = "share/zsh/site-functions/zsh-autosuggestions-abbreviations-strategy.plugin.zsh"; }
     ];
 
     initContent = mkMerge [
@@ -83,8 +71,8 @@
 
       (mkOrder 1500 ''
         ZSH_AUTOSUGGEST_STRATEGY=( abbreviations history completion )
-        bindkey '^[[A' history-substring-search-up
-        bindkey '^[[B' history-substring-search-down
+        # bindkey '^[[A' history-substring-search-up
+        # bindkey '^[[B' history-substring-search-down
       '')
     ];
   };
