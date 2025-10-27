@@ -4,6 +4,6 @@
 {
   home.packages = with pkgs; [
     unzip unrar xz zstd
-    gh htop rsync openssh curl bat
+    gh htop rsync openssh curl bat ffmpeg
   ];
 }

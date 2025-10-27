@@ -72,6 +72,7 @@
       (mkOrder 1000 ''
         local noglob_cmds=(
           nix git curl wget rsync
+          yt-dlp gallery-dl
         )
         for cmd in $noglob_cmds; do
           alias $cmd="noglob $cmd"

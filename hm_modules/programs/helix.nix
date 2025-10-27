@@ -6,6 +6,7 @@
     enable = true;
     settings = {
       editor = {
+        mouse = false;
         auto-save = true;
         bufferline = "multiple";
         cursorline = true;
