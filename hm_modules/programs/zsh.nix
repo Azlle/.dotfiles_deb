@@ -4,7 +4,7 @@
 {
   programs.keychain = {
     enable = true;
-    keys = [ "github_ed25519" ];
+    keys = [ "github_ed25519" "Nix_ed25519" ];
     enableZshIntegration = true;
   };
 
@@ -23,8 +23,8 @@
       enable = true;
       abbreviations = {
         # ./eza.nixのextraOptionsで省略している
-        ls = "eza -Bl";
-        la = "eza -aaghl";
+        ls = "eza -lB";
+        la = "eza -aglB";
         cat = "bat";
         rmtrash = "rm -rf ~/.local/share/Trash/files/*";
         vi = "hx";
