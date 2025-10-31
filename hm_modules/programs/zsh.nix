@@ -10,6 +10,7 @@
 
   programs.zsh = {
     enable = true;
+    defaultKeymap = "viins";
     enableCompletion = true;
     autosuggestion.enable = true;
     historySubstringSearch.enable = true;
@@ -31,7 +32,8 @@
         # nix
         hmsf = "home-manager switch --flake ~/.dotfiles_deb/";
         nist = "nix store gc && nix store optimise";
-        dlp = "nix run nixpkgs/nixpkgs-unstable#yt-dlp --";
+        ydl = "nix run nixpkgs/nixpkgs-unstable#yt-dlp --";
+        gdl = "nix run nixpkgs/nixpkgs-unstable#gallery-dl --";
 
         # git
         gst = "git status";
@@ -82,6 +84,7 @@
         zstyle ':completion:*' matcher-list "" 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
 
         zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+        zstyle ':fzf-tab:complete:mount:*' fzf-preview 'eza -1 --color=always $realpath'
         zstyle ':fzf-tab:*' switch-group '<' '>'
 
         zstyle ':completion:*' use-cache on
@@ -100,6 +103,8 @@
 
       (mkOrder 1500 ''
         ZSH_AUTOSUGGEST_STRATEGY=( abbreviations history completion )
+        export KEYTIMEOUT=15
+        bindkey -M viins 'jk' vi-cmd-mode
       '')
     ];
   };

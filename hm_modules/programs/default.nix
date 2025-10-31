@@ -4,7 +4,7 @@
 {
   imports = [
     ./eza.nix
-    ./gl-dl.nix
+    ./gallery-dl.nix
     ./git.nix
     ./helix.nix
     ./nvim.nix
