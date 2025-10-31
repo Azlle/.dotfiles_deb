@@ -93,12 +93,12 @@
     fzf = {
       enable = true;
       enableZshIntegration = true;
-      defaultCommand = "plocate ''";
     };
 
     zoxide = {
       enable = true;
       enableZshIntegration = true;
+      options = [ "--cmd cd" ];
     };
   };
 }

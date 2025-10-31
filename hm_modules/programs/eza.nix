@@ -8,6 +8,7 @@
 
     extraOptions = [
       "--group-directories-first"
+      "--color=always"
       "--icons"
       "--git"
     ];
