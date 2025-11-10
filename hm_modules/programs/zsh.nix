@@ -11,38 +11,33 @@
   programs.zsh = {
     enable = true;
     defaultKeymap = "viins";
-    enableCompletion = true;
+    enableCompletion = false; # compinitの記述がヘルシーじゃない
     autosuggestion.enable = true;
     historySubstringSearch.enable = true;
     
     setOptions = [
-      "AUTO_CD" "NO_BEEP" "MAGIC_EQUAL_SUBST" "LIST_PACKED"
+      "AUTO_CD" "NO_BEEP" "MAGIC_EQUAL_SUBST" "LIST_PACKED" "PROMPT_SUBST"
       "EXTENDED_GLOB" "GLOB_DOTS" "NUMERIC_GLOB_SORT" "NULL_GLOB" 
     ];
 
-    zsh-abbr = {
-      enable = true;
-      abbreviations = {
-        # ./eza.nixのextraOptionsで省略している
-        la = "eza -glBa"; # group, long, Bytes, all
-        lsnix = "eza -gT $(nix build nixpkgs# --no-link --print-out-paths)";
-        rmt = "rm -rf ~/.local/share/Trash/files/*";
-        vi = "hx";
+    shellAliases = {
+      # ./eza.nixのextraOptionsで省略している
+      rmt = "rm -rf ~/.local/share/Trash/files/*";
+      vi = "hx";
 
-        # nix
-        hmsf = "home-manager switch --flake ~/.dotfiles_deb/";
-        nist = "nix store gc && nix store optimise";
-        ydl = "nix run nixpkgs/nixpkgs-unstable#yt-dlp --";
-        gdl = "nix run nixpkgs/nixpkgs-unstable#gallery-dl --";
+      # nix
+      hmsf = "home-manager switch --flake ~/.dotfiles_deb/";
+      nist = "nix store gc && nix store optimise";
+      ydl = "nix run nixpkgs/nixpkgs-unstable#yt-dlp --";
+      gdl = "nix run nixpkgs/nixpkgs-unstable#gallery-dl --";
 
-        # git
-        gst = "git status";
-        ga = "git add .";
-        gcm = "git commit -m";
-        gp = "git push";
-        gl = "git log --graph --date=iso --pretty='format:%C(yellow)%h %C(cyan)%ad %C(green)%an%Creset%x09%s %C(red)%d%Creset'";
-      };
+      # git
+      gst = "git status";
+      ga = "git add .";
+      gp = "git push";
+      gl = "git log --graph --date=iso --pretty='format:%C(yellow)%h %C(cyan)%ad %C(green)%an%Creset%x09%s %C(red)%d%Creset'";
     };
+
 
     history = {
       size = 100000;
@@ -66,17 +61,28 @@
         src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting";
       }
       {
-        name = "zsh-autosuggestions-abbreviations-strategy";
-        src = "${pkgs.zsh-autosuggestions-abbreviations-strategy}/share/zsh/site-functions";
-      }
-      {
-        name = "fzf-tab";
-        src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
+        name = "zeno.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "yuki-yano";
+          repo = "zeno.zsh";
+          rev = "main";
+          sha256 = "sha256-dLusSPNeG4U95DfGEspPinxFIhkbJ+Q1Dhvef42uI7Q=";
+        };
+        file = "zeno.zsh";
       }
     ];
 
     initContent = mkMerge [
       (mkOrder 500 ''
+        autoload -Uz compinit
+
+        # 24時間以内なら-Cでスキップ、それ以外は再生成
+        if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh-24) ]]; then
+          compinit -C
+        else
+          compinit
+        fi
+
         zstyle ':completion:*' menu no
         zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
         zstyle ':completion:*:descriptions' format $'\e[22m[ %d ]\e[m'
@@ -102,10 +108,64 @@
       '')
 
       (mkOrder 1500 ''
-        ZSH_AUTOSUGGEST_STRATEGY=( abbreviations history completion )
         export KEYTIMEOUT=15
         bindkey -M viins 'jk' vi-cmd-mode
+        
+        export ZENO_HOME=~/.config/zeno
+        export ZENO_ENABLE_FZF_TMUX=1
+        export ZENO_GIT_CAT="bat --color=always"
+        export ZENO_GIT_TREE="eza --tree"
+
+        if [[ -n $ZENO_LOADED ]]; then
+          bindkey ' '  zeno-auto-snippet
+
+          # fallback if snippet not matched (default: self-insert)
+          # export ZENO_AUTO_SNIPPET_FALLBACK=self-insert
+
+          # if you use zsh's incremental search
+          # bindkey -M isearch ' ' self-insert
+
+          bindkey '^m' zeno-auto-snippet-and-accept-line
+
+          bindkey '^i' zeno-completion
+
+          bindkey '^x '  zeno-insert-space
+          bindkey '^x^m' accept-line
+          bindkey '^x^z' zeno-toggle-auto-snippet
+
+          bindkey '^r' zeno-smart-history-selection
+        fi
       '')
     ];
   };
+
+  # zeno.zsh
+  home.packages = with pkgs; [ deno tmux ];
+
+  xdg.configFile."zeno/config.yml".text = ''
+    snippets:
+      - name: List all files
+        keyword: la
+        snippet: eza -glBa
+
+      - name: List nixpkgs src
+        keyword: lsn
+        snippet: eza -gT $(nix build nixpkgs#{{package_name}} --no-link --print-out-paths)
+
+      - name: git commit message
+        keyword: gcm
+        snippet: git commit -m '{{commit_message}}'
+
+    history:
+      defaultScope: global        # "global" | "repository" | "directory" | "session"
+      fzfCommand: fzf-tmux        # Override the command that spawns the picker
+      fzfOptions:
+        - "-p 50%,50%"            # Additional arguments passed to the picker command
+      redact: []                  # Strings to hide from the History view
+      keymap:
+        deleteSoft: ctrl-d        # Soft delete (logical delete)
+        deleteHard: alt-d         # Hard delete (edits HISTFILE)
+        toggleScope: ctrl-r       # Cycle through scopes within the widget
+        togglePreview: ?          # Toggle the preview window
+  '';
 }
