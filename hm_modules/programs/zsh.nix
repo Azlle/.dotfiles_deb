@@ -17,7 +17,7 @@
     
     setOptions = [
       "AUTO_CD" "NO_BEEP" "MAGIC_EQUAL_SUBST" "LIST_PACKED" "PROMPT_SUBST"
-      "EXTENDED_GLOB" "GLOB_DOTS" "NUMERIC_GLOB_SORT" "NULL_GLOB" 
+      "GLOB_DOTS" "NUMERIC_GLOB_SORT" "NULL_GLOB" # "EXTENDED_GLOB"はinitContentに書いた 
     ];
 
     shellAliases = {
@@ -74,13 +74,17 @@
 
     initContent = mkMerge [
       (mkOrder 500 ''
-        autoload -Uz compinit
+        setopt EXTENDED_GLOB
 
-        # 24時間以内なら-Cでスキップ、それ以外は再生成
-        if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh-24) ]]; then
-          compinit -C
-        else
+        autoload -Uz compinit
+  
+        echo "=== Compinit Debug ==="
+        if [[ -n ''${ZDOTDIR:-$HOME}/.zcompdump(#qNmh+24) ]]; then
+          echo "Running full compinit"
           compinit
+        else
+          echo "Running compinit -C (cached)"
+          compinit -C
         fi
 
         zstyle ':completion:*' menu no
@@ -107,13 +111,9 @@
         export KEYTIMEOUT=15
         bindkey -M viins 'jk' vi-cmd-mode       
 
-        ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
-          # zeno-auto-snippet-and-accept-line
-        )
-
         export ZENO_HOME=~/.config/zeno
         export ZENO_ENABLE_FZF_TMUX=1
-        export ZENO_FZF_TMUX_OPTIONS="-p --reverse"
+        export ZENO_FZF_TMUX_OPTIONS="--reverse"
         export ZENO_GIT_CAT="bat --color=always"
         export ZENO_GIT_TREE="eza --tree"
 
@@ -136,7 +136,7 @@
   };
 
   # zeno.zsh
-  home.packages = with pkgs; [ deno tmux ];
+  # home.packages = with pkgs; [ deno tmux ]; はzatta.nixに書きました
 
   xdg.configFile."zeno/config.yml".text = ''
     snippets:

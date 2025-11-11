@@ -11,6 +11,7 @@
     ./nvim.nix
     ./yazi.nix
     ./yt-dlp.nix
+    ./zatta.nix
     ./zsh.nix
   ];
 }
