@@ -12,7 +12,7 @@
     enable = true;
     defaultKeymap = "viins";
     enableCompletion = false; # compinitの記述がヘルシーじゃない
-    autosuggestion.enable = true;
+    autosuggestion.enable = false; # ロード順の関係でpluginsで記述している
     historySubstringSearch.enable = true;
     
     setOptions = [
@@ -56,10 +56,8 @@
       { name = "powerlevel10k"; src = pkgs.zsh-powerlevel10k; file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme"; }
       { name = "powerlevel10k-config"; src = ../.config/p10k-config; file = ".p10k.zsh"; }
 
-      {
-        name = "fast-syntax-highlighting";
-        src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting";
-      }
+      { name = "F-Sy-H"; src = "${pkgs.zsh-f-sy-h}/share/zsh/site-functions"; }
+
       {
         name = "zeno.zsh";
         src = pkgs.fetchFromGitHub {
@@ -70,6 +68,8 @@
         };
         file = "zeno.zsh";
       }
+
+      # { name = "zsh-autosuggestions"; src = "${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions"; }
     ];
 
     initContent = mkMerge [
@@ -89,10 +89,6 @@
         zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
         zstyle ':completion:*' matcher-list "" 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
 
-        zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-        zstyle ':fzf-tab:complete:mount:*' fzf-preview 'eza -1 --color=always $realpath'
-        zstyle ':fzf-tab:*' switch-group '<' '>'
-
         zstyle ':completion:*' use-cache on
         zstyle ':completion:*' cache-path ~/.zsh/cache
       '')
@@ -109,21 +105,20 @@
 
       (mkOrder 1500 ''
         export KEYTIMEOUT=15
-        bindkey -M viins 'jk' vi-cmd-mode
-        
+        bindkey -M viins 'jk' vi-cmd-mode       
+
+        ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(
+          # zeno-auto-snippet-and-accept-line
+        )
+
         export ZENO_HOME=~/.config/zeno
         export ZENO_ENABLE_FZF_TMUX=1
+        export ZENO_FZF_TMUX_OPTIONS="-p --reverse"
         export ZENO_GIT_CAT="bat --color=always"
         export ZENO_GIT_TREE="eza --tree"
 
         if [[ -n $ZENO_LOADED ]]; then
           bindkey ' '  zeno-auto-snippet
-
-          # fallback if snippet not matched (default: self-insert)
-          # export ZENO_AUTO_SNIPPET_FALLBACK=self-insert
-
-          # if you use zsh's incremental search
-          # bindkey -M isearch ' ' self-insert
 
           bindkey '^m' zeno-auto-snippet-and-accept-line
 
@@ -133,6 +128,7 @@
           bindkey '^x^m' accept-line
           bindkey '^x^z' zeno-toggle-auto-snippet
 
+          # bindkey '^r' zeno-history-selection
           bindkey '^r' zeno-smart-history-selection
         fi
       '')
