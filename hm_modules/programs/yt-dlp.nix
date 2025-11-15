@@ -1,10 +1,20 @@
 # yt-dlp.nix
-{ ... }:
+{ pkgs, ... }:
+
+let
+  yt-dlp = pkgs.yt-dlp.overrideAttrs (oldAttrs: {
+    version = "2025.11.12";
+    src = pkgs.fetchFromGitHub {
+      owner = "yt-dlp";
+      repo = "yt-dlp";
+      rev = "2025.11.12";
+      hash = "sha256-Em8FLcCizSfvucg+KPuJyhFZ5MJ8STTjSpqaTD5xeKI=";
+    };
+  });
+in
 
 {
-  programs.yt-dlp = {
-    enable = false;
-  };
+  home.packages = [ yt-dlp ];
 
   xdg.configFile."yt-dlp/config".text = ''
     # --cookies-from-browser firefox

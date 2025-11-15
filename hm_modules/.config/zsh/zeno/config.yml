@@ -1,0 +1,24 @@
+snippets:
+  - name: List all files
+    keyword: la
+    snippet: eza -glBa
+
+  - name: List nixpkgs src
+    keyword: lsn
+    snippet: eza -gT $(nix build nixpkgs#{{package_name}} --no-link --print-out-paths)
+
+  - name: git commit message
+    keyword: gcm
+    snippet: git commit -m '{{commit_message}}'
+
+history:
+  defaultScope: global        # "global" | "repository" | "directory" | "session"
+  fzfCommand: fzf-tmux        # Override the command that spawns the picker
+  fzfOptions:
+    - "-p 50%,50%"            # Additional arguments passed to the picker command
+  redact: []                  # Strings to hide from the History view
+  keymap:
+    deleteSoft: ctrl-d        # Soft delete (logical delete)
+    deleteHard: alt-d         # Hard delete (edits HISTFILE)
+    toggleScope: ctrl-r       # Cycle through scopes within the widget
+    togglePreview: ?          # Toggle the preview window

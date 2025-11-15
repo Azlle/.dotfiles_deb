@@ -28,7 +28,7 @@
       # nix
       hmsf = "home-manager switch --flake ~/.dotfiles_deb/";
       nist = "nix store gc && nix store optimise";
-      ydl = "yt-dlp";
+      ydl = "nix run nixpkgs/nixpkgs-unstable#yt-dlp --";
       gdl = "nix run nixpkgs/nixpkgs-unstable#gallery-dl --";
 
       # git

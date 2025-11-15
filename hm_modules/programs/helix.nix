@@ -87,7 +87,7 @@
         };
 
         insert = {
-          j.j = "normal_mode";
+          j.k = "normal_mode";
         };
       };
 
