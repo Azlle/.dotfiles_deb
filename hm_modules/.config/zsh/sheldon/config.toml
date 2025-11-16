@@ -1,12 +1,9 @@
 shell = "zsh"
 
-
 [templates]
 defer = "{{ hooks | get: \"pre\" | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks | get: \"post\" | nl }}"
-
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
-
 
 [plugins.powerlevel10k]
 github = "romkatv/powerlevel10k"
@@ -15,13 +12,12 @@ github = "romkatv/powerlevel10k"
 local = "~/.config/zsh/p10k-config"
 use = [".p10k.zsh"]
 
-[plugins.F-Sy-H]
-github = "z-shell/F-Sy-H"
-apply = ["defer"]
-
 [plugins.zeno]
 github = "yuki-yano/zeno.zsh"
 use = ["zeno.zsh"]
+
+[plugins.F-Sy-H]
+github = "z-shell/F-Sy-H"
 apply = ["defer"]
 
 [plugins.zsh-autosuggestions]
