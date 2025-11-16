@@ -29,7 +29,7 @@
       (mkOrder 500 ''
         export ZSH_HOME="''${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
         export SHELDON_CONFIG_FILE="$ZSH_HOME/sheldon/config.toml"
-        source "$ZSH_HOME/zcompile.zsh"
+        # source "$ZSH_HOME/zcompile.zsh"
         source "$ZSH_HOME/setopt.zsh"
       '')
 
