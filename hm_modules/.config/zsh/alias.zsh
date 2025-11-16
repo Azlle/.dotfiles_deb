@@ -1,3 +1,12 @@
+# evade glob
+local noglob_cmds=(
+  nix git curl wget rsync
+  yt-dlp gallery-dl
+)
+for cmd in $noglob_cmds; do
+  alias $cmd="noglob $cmd"
+done
+
 # ./eza.nix の extraOptions で省略している
 alias rmt='rm -rf ~/.local/share/Trash/files/*'
 alias vi='hx'

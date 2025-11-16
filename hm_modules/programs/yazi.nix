@@ -92,13 +92,10 @@
 
     fzf = {
       enable = true;
-      enableZshIntegration = false;
     };
 
     zoxide = {
       enable = true;
-      enableZshIntegration = true;
-      options = [ "--cmd cd" ];
     };
   };
 }
