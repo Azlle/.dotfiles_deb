@@ -15,11 +15,6 @@
       url = "github:stelcodes/bunny.yazi";
       flake = false;
     };
-
-    sheldon = {
-      url = "github:rossmacarthur/sheldon";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -29,7 +24,6 @@
       home-manager,
       catppuccin,
       bunny-yazi,
-      sheldon,
       ...
     }@inputs:
 
@@ -40,6 +34,7 @@
         config.allowUnfree = true;
       };
     in
+
     {
       homeConfigurations = {
         "miyu" = home-manager.lib.homeManagerConfiguration {

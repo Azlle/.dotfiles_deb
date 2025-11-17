@@ -28,7 +28,7 @@
     initContent = mkMerge [
       (mkOrder 500 ''
         export ZSH_HOME="''${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
-        export SHELDON_CONFIG_FILE="$ZSH_HOME/sheldon/config.toml"
+        export SHELDON_CONFIG_FILE="$ZSH_HOME/sheldon/plugins.toml"
         # source "$ZSH_HOME/zcompile.zsh"
         source "$ZSH_HOME/setopt.zsh"
       '')
@@ -41,9 +41,8 @@
       (mkOrder 1500 ''
         source "$ZSH_HOME/sheldon.zsh"
         source "$ZSH_HOME/alias.zsh"
-        source "$ZSH_HOME/zeno.zsh"
         source "$ZSH_HOME/bindkey.zsh"
-        zsh-defer unfunction source
+        # zsh-defer unfunction source
       '')
     ];
   };

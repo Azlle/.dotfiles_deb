@@ -2,6 +2,7 @@ shell = "zsh"
 
 [templates]
 defer = "{{ hooks | get: \"pre\" | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks | get: \"post\" | nl }}"
+
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
 
@@ -12,12 +13,8 @@ github = "romkatv/powerlevel10k"
 local = "~/.config/zsh/p10k-config"
 use = [".p10k.zsh"]
 
-[plugins.zeno]
-github = "yuki-yano/zeno.zsh"
-use = ["zeno.zsh"]
-
-[plugins.F-Sy-H]
-github = "z-shell/F-Sy-H"
+[plugins.fast-syntax-highlighting]
+github = "zdharma-continuum/fast-syntax-highlighting"
 apply = ["defer"]
 
 [plugins.zsh-autosuggestions]
@@ -27,3 +24,11 @@ apply = ["defer"]
 [plugins.zsh-history-substring-search]
 github = "zsh-users/zsh-history-substring-search"
 apply = ["defer"]
+
+[plugins.zeno]
+github = "yuki-yano/zeno.zsh"
+apply = ["defer"]
+
+[plugins.zeno.hooks]
+pre = "source ~/.config/zsh/zeno/zeno_env.zsh"
+post = "zsh-defer source ~/.config/zsh/zeno/zeno_bindkey.zsh" # 読み込まれない側をdeferしちゃえばいいらしい
