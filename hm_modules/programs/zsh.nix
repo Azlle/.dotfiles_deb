@@ -27,6 +27,7 @@
 
     initContent = mkMerge [
       (mkOrder 500 ''
+        export LANG=en_US.UTF-8
         export ZSH_HOME="''${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
         export SHELDON_CONFIG_FILE="$ZSH_HOME/sheldon/plugins.toml"
         # source "$ZSH_HOME/zcompile.zsh"
