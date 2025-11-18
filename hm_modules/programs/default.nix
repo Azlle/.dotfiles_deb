@@ -4,7 +4,6 @@
 {
   imports = [
     ./eza.nix
-    ./fish.nix
     ./gallery-dl.nix
     ./git.nix
     ./helix.nix

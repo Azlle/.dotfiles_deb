@@ -14,12 +14,7 @@
     zoxide.enableZshIntegration = true;
   };
 
-  programs.keychain = {
-    enable = true;
-    keys = [ "github_ed25519" "Nix_ed25519" ];
-  };
-  
-  home.packages = with pkgs; [ sheldon deno tmux ];
+  home.packages = with pkgs; [ sheldon deno tmux keychain ];
   
   programs.zsh = {
     enable = true;
@@ -37,6 +32,7 @@
       (mkOrder 1000 ''
         source "$ZSH_HOME/comp.zsh"
         source "$ZSH_HOME/history.zsh"
+        source "$ZSH_HOME/keychain.zsh"
       '')
 
       (mkOrder 1500 ''
