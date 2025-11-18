@@ -3,7 +3,7 @@
 HISTSIZE="100000"
 SAVEHIST="100000"
 
-HISTFILE="/home/miyu/.zsh_history"
+HISTFILE="$HOME/.zsh_history"
 mkdir -p "$(dirname "$HISTFILE")"
 
 setopt HIST_FCNTL_LOCK

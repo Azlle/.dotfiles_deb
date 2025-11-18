@@ -27,5 +27,5 @@ curl -fsSL https://raw.githubusercontent.com/Azlle/.dotfiles_deb/main/scripts/bo
 
 | abbr | 展開後 |
 |------|--------|
-| `hmsf` | `home-manager switch --flake ~/.dotfiles_deb/` |
+| `hmsf` | `home-manager switch --flake ~/.dotfiles_deb/#sumizomenosakura` |
 | `nist` | `nix store gc && nix store optimise` |

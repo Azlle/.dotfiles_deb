@@ -37,7 +37,7 @@
 
     {
       homeConfigurations = {
-        "miyu" = home-manager.lib.homeManagerConfiguration {
+        "sumizomenosakura" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
             ./home.nix
