@@ -8,9 +8,11 @@
   };
 
   programs = {
+    eza.enableZshIntegration = false;
+    fzf.enableZshIntegration = false;
     keychain.enableZshIntegration = true;
     sheldon.enableZshIntegration = true;
-    fzf.enableZshIntegration = false;
+    yazi.enableZshIntegration = true;
     zoxide.enableZshIntegration = true;
   };
 

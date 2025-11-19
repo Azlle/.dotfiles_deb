@@ -4,7 +4,6 @@
 {
   programs.yazi = {
     enable = true;
-    enableZshIntegration = true;
     shellWrapperName = "y";
 
     settings = {
@@ -86,16 +85,9 @@
       };
     };
 
-    zathura.enable = true;
-
     fd.enable = true;
-
-    fzf = {
-      enable = true;
-    };
-
-    zoxide = {
-      enable = true;
-    };
+    fzf.enable = true;
+    zathura.enable = true;
+    zoxide.enable = true;
   };
 }

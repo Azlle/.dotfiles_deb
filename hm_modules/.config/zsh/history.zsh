@@ -26,4 +26,3 @@ for opt in "${disabled_opts[@]}"; do
   unsetopt "$opt"
 done
 unset opt disabled_opts
-
