@@ -11,6 +11,14 @@ snippets:
     keyword: hmsf
     snippet: home-manager switch{{}} --flake ~/.dotfiles_deb/#sumizomenosakura
 
+  - name: Latest yt-dlp for Video
+    keyword: ydlv
+    snippet: nix run --refresh nixpkgs/nixpkgs-unstable#yt-dlp -- -f 'bv*+ba/b' --merge-output-format mkv
+
+  - name: Latest yt-dlp for Audio
+    keyword: ydla
+    snippet: nix run --refresh nixpkgs/nixpkgs-unstable#yt-dlp -- -x --audio-format flac
+
   - name: git commit message
     keyword: gcm
     snippet: git commit -m '{{commit_message}}'

@@ -14,11 +14,10 @@ alias vi='hx'
 
 # nix
 alias nist='nix store gc && nix store optimise'
-alias ydl='nix run nixpkgs/nixpkgs-unstable#yt-dlp --'
-alias gdl='nix run nixpkgs/nixpkgs-unstable#gallery-dl --'
+alias gdl='nix run --refresh nixpkgs/nixpkgs-unstable#gallery-dl --'
 
 # git
 alias gst='git status'
-alias ga='git add .'
+alias gaa='git add .'
 alias gp='git push'
 alias gl='git log --graph --date=iso --pretty=format:%C(yellow)%h\ %C(cyan)%ad\ %C(green)%an%Creset%x09%s\ %C(red)%d%Creset'

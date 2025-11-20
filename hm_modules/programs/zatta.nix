@@ -3,9 +3,9 @@
 
 {
   home.packages = with pkgs; [
-    unzip unrar xz zstd
-    gh htop rsync openssh curl bat ffmpeg
-    deno # zeno.zshで依存していたり, yt-dlpで依存予定らしいのでコチラに
+    libarchive xz zstd
+    gh rsync openssh
+    htop curl bat ffmpeg
     tmux zellij
   ];
 }
